@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Happy Birthday, Alicia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff8fc7; --gold:#ffd36e; --lilac:#a58bff; --text:#fff7fb;
+  --bg-top:#2a1457; --bg-bottom:#0b1030;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%;overflow-x:hidden}
+body{
+  font-family:'Nunito',sans-serif;color:var(--text);
+  background:linear-gradient(180deg,var(--bg-top),var(--bg-bottom)) fixed;
+  position:relative;
+}
+#stars,#balloons,#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
+#stars{z-index:0}
+#balloons{z-index:1;overflow:hidden}
+#confetti{z-index:3}
+.star{position:absolute;border-radius:50%;background:var(--text);animation:twinkle var(--d) ease-in-out infinite;animation-delay:var(--delay)}
+@keyframes twinkle{0%,100%{opacity:.15;transform:scale(.7)}50%{opacity:1;transform:scale(1.2)}}
+
+main{
+  position:relative;z-index:2;max-width:520px;margin:0 auto;
+  padding:32px 20px 48px;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:18px;
+}
+.label{font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;color:var(--lilac);font-weight:800}
+h1{
+  font-family:'Pacifico',cursive;font-weight:400;color:var(--pink);
+  font-size:clamp(2.2rem,10vw,3.4rem);line-height:1.2;
+  text-shadow:0 0 18px rgba(255,143,199,.65),0 0 40px rgba(255,143,199,.3);
+  animation:bounce 2.4s ease-in-out infinite;
+}
+h1 .age{color:var(--gold);text-shadow:0 0 18px rgba(255,211,110,.7),0 0 40px rgba(255,211,110,.35);display:inline-block}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+.cake{width:min(300px,80vw);height:auto;overflow:visible;transform-origin:50% 100%;animation:sway 5s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-1.2deg)}50%{transform:rotate(1.2deg)}}
+.flame{transform-box:fill-box;transform-origin:50% 100%;animation:flicker .35s ease-in-out infinite alternate;transition:opacity .35s,transform .35s}
+.flame.f2{animation-duration:.45s}
+@keyframes flicker{from{transform:scale(1,1) rotate(-3deg)}to{transform:scale(.88,1.12) rotate(3deg)}}
+.glow{transition:opacity .35s;animation:glowpulse .5s ease-in-out infinite alternate}
+@keyframes glowpulse{from{opacity:.55}to{opacity:.9}}
+.out .flame,.out .glow{opacity:0;animation:none}
+.smoke{opacity:0;fill:none;stroke:rgba(255,255,255,.6);stroke-width:3;stroke-linecap:round}
+.out .smoke{animation:smoke 2.4s ease-out forwards}
+.out .smoke.s2{animation-delay:.25s}
+@keyframes smoke{0%{opacity:0;transform:translateY(0)}20%{opacity:.8}100%{opacity:0;transform:translateY(-50px)}}
+
+.status{font-size:1.1rem;font-weight:600;min-height:1.6em}
+button{
+  font:800 1rem 'Nunito',sans-serif;color:#3a0f2e;background:var(--pink);
+  border:0;border-radius:999px;padding:14px 30px;cursor:pointer;
+  box-shadow:0 6px 22px rgba(255,143,199,.45);transition:transform .15s,box-shadow .15s;
+}
+button:hover{transform:translateY(-2px)}
+button:active{transform:scale(.97)}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+.wishes{list-style:none;display:flex;flex-direction:column;gap:12px;margin-top:8px}
+.wishes li{
+  font-size:1.05rem;line-height:1.5;padding:12px 16px;border-radius:16px;
+  background:rgba(165,139,255,.12);border:1px solid rgba(165,139,255,.3);
+  opacity:0;animation:fadein .8s ease forwards;animation-delay:calc(var(--i) * .7s);
+}
+.wishes li:first-child{color:var(--gold);font-weight:800}
+@keyframes fadein{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.closing{font-size:.9rem;color:var(--lilac);margin-top:6px}
+
+.balloon{
+  position:absolute;bottom:-160px;width:var(--w);height:calc(var(--w) * 1.22);
+  border-radius:50% 50% 48% 48%;
+  background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.75) 0 8%,transparent 22%),
+             radial-gradient(circle at 50% 40%,var(--c),color-mix(in srgb,var(--c) 60%,#000));
+  animation:rise var(--dur) linear infinite;animation-delay:var(--delay);opacity:.85;
+}
+.balloon::before{ /* knot */
+  content:"";position:absolute;left:50%;bottom:-6px;width:10px;height:8px;background:var(--c);
+  transform:translateX(-50%);clip-path:polygon(50% 0,100% 100%,0 100%);
+}
+.balloon::after{ /* string */
+  content:"";position:absolute;left:50%;top:100%;width:1.5px;height:70px;
+  background:linear-gradient(rgba(255,255,255,.6),transparent);margin-top:2px;
+}
+@keyframes rise{
+  0%{transform:translate(0,0) rotate(-3deg)}
+  25%{transform:translate(18px,-30vh) rotate(3deg)}
+  50%{transform:translate(-14px,-65vh) rotate(-3deg)}
+  75%{transform:translate(16px,-100vh) rotate(3deg)}
+  100%{transform:translate(0,-135vh) rotate(-2deg)}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  #balloons,#confetti{display:none}
+  .wishes li{opacity:1}
+}
+</style>
+</head>
+<body>
+<div id="stars" aria-hidden="true"></div>
+<div id="balloons" aria-hidden="true"></div>
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<main>
+  <p class="label">November 2026</p>
+  <h1>Happy Birthday, Alicia <span class="age">17</span></h1>
+
+  <svg class="cake" id="cake" viewBox="0 0 300 290" role="img" aria-label="Two-tier birthday cake with two lit candles">
+    <defs>
+      <radialGradient id="flameGlow"><stop offset="0" stop-color="#ffd36e" stop-opacity=".9"/><stop offset="1" stop-color="#ffd36e" stop-opacity="0"/></radialGradient>
+      <linearGradient id="flameFill" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#ff8fc7"/><stop offset=".5" stop-color="#ffb347"/><stop offset="1" stop-color="#fff3b0"/></linearGradient>
+    </defs>
+    <ellipse cx="150" cy="268" rx="130" ry="14" fill="#d9d4ff" opacity=".9"/>
+    <ellipse cx="150" cy="262" rx="130" ry="12" fill="#fff7fb"/>
+    <!-- bottom tier -->
+    <rect x="40" y="170" width="220" height="90" rx="14" fill="#a58bff"/>
+    <path d="M40 184a14 14 0 0 1 14-14h192a14 14 0 0 1 14 14v6c-9 0-9 16-20 16s-11-12-22-12-11 22-22 22-11-14-22-14-11 20-22 20-11-16-22-16-11 14-22 14-11-18-22-18-11 14-20 14z" fill="#fff"/>
+    <!-- top tier -->
+    <rect x="75" y="112" width="150" height="62" rx="12" fill="#ff8fc7"/>
+    <path d="M75 124a12 12 0 0 1 12-12h126a12 12 0 0 1 12 12v4c-8 0-8 16-18 16s-10-10-20-10-10 20-20 20-10-12-20-12-10 16-20 16-10-14-20-14-10 12-20 12z" fill="#fff"/>
+    <!-- sprinkles -->
+    <g>
+      <circle cx="62" cy="228" r="3" fill="#ffd36e"/><circle cx="96" cy="240" r="3" fill="#ff8fc7"/>
+      <circle cx="132" cy="226" r="3" fill="#fff"/><circle cx="170" cy="242" r="3" fill="#ffd36e"/>
+      <circle cx="206" cy="228" r="3" fill="#ff8fc7"/><circle cx="240" cy="240" r="3" fill="#fff"/>
+      <circle cx="100" cy="160" r="2.6" fill="#ffd36e"/><circle cx="140" cy="158" r="2.6" fill="#a58bff"/>
+      <circle cx="182" cy="162" r="2.6" fill="#fff"/><circle cx="208" cy="156" r="2.6" fill="#ffd36e"/>
+    </g>
+    <!-- candles -->
+    <rect x="115" y="74" width="10" height="38" rx="3" fill="#ffd36e"/>
+    <rect x="175" y="74" width="10" height="38" rx="3" fill="#ffd36e"/>
+    <g stroke="#fff7fb" stroke-width="2" opacity=".6"><path d="M117 84l8 -4M117 96l8 -4M175 84l8 -4M175 96l8 -4"/></g>
+    <circle class="glow" cx="120" cy="58" r="30" fill="url(#flameGlow)"/>
+    <circle class="glow" cx="180" cy="58" r="30" fill="url(#flameGlow)"/>
+    <path class="flame" d="M120 74c-9-8-8-18 0-30 8 12 9 22 0 30z" fill="url(#flameFill)"/>
+    <path class="flame f2" d="M180 74c-9-8-8-18 0-30 8 12 9 22 0 30z" fill="url(#flameFill)"/>
+    <path class="smoke" d="M120 70c-8-10 8-16 0-28s6-16 0-26"/>
+    <path class="smoke s2" d="M180 70c-8-10 8-16 0-28s6-16 0-26"/>
+  </svg>
+
+  <p class="status" id="status" aria-live="polite">Close your eyes and make a wish.</p>
+  <button id="toggle" type="button">Blow out the candles</button>
+
+  <ul class="wishes">
+    <li style="--i:0">Happy Birthday, Lova. Happy 17.</li>
+    <li style="--i:1">May this year bring you laughter, calm days and good news.</li>
+    <li style="--i:2">May every dream you chase come a little closer.</li>
+    <li style="--i:3">Wishing you health, success and people who treat you well.</li>
+  </ul>
+  <p class="closing">Enjoy your special day, Alicia.</p>
+</main>
+
+<script>
+(() => {
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const COLORS = [css('--pink'), css('--gold'), css('--lilac'), css('--text')];
+  const rand = (a, b) => a + Math.random() * (b - a);
+
+  // Stars
+  const stars = document.getElementById('stars');
+  for (let i = 0; i < 70; i++) {
+    const s = document.createElement('i');
+    s.className = 'star';
+    const size = rand(1, 3);
+    s.style.cssText = `left:${rand(0,100)}%;top:${rand(0,100)}%;width:${size}px;height:${size}px;--d:${rand(2,5)}s;--delay:${rand(0,4)}s`;
+    stars.appendChild(s);
+  }
+
+  // Balloons
+  if (!reduced) {
+    const box = document.getElementById('balloons');
+    for (let i = 0; i < 14; i++) {
+      const b = document.createElement('div');
+      b.className = 'balloon';
+      b.style.cssText = `left:${(i / 14) * 100 + rand(-2, 3)}%;--w:${rand(38,62)}px;--c:${COLORS[i % 3]};--dur:${rand(14,24)}s;--delay:${-rand(0,20)}s`;
+      box.appendChild(b);
+    }
+  }
+
+  // Confetti
+  const canvas = document.getElementById('confetti');
+  const ctx = canvas.getContext('2d');
+  let parts = [], running = false;
+  const resize = () => { canvas.width = innerWidth; canvas.height = innerHeight; };
+  resize(); addEventListener('resize', resize);
+
+  function burst(x, y, n, spread, power, gravity = .18) {
+    if (reduced) return;
+    for (let i = 0; i < n; i++) {
+      const a = rand(-Math.PI/2 - spread, -Math.PI/2 + spread), v = rand(power * .4, power);
+      parts.push({x, y, vx: Math.cos(a)*v, vy: Math.sin(a)*v, g: gravity, w: rand(5,10), h: rand(3,6),
+        r: rand(0,6.28), vr: rand(-.3,.3), c: COLORS[(Math.random()*COLORS.length)|0], life: 1, decay: rand(.006,.014)});
+    }
+    if (!running) { running = true; requestAnimationFrame(tick); }
+  }
+  function tick() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    parts = parts.filter(p => p.life > 0 && p.y < canvas.height + 20);
+    for (const p of parts) {
+      p.vy += p.g; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.r += p.vr; p.life -= p.decay;
+      ctx.save(); ctx.globalAlpha = Math.max(p.life, 0); ctx.translate(p.x, p.y); ctx.rotate(p.r);
+      ctx.fillStyle = p.c; ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h); ctx.restore();
+    }
+    if (parts.length) requestAnimationFrame(tick); else running = false;
+  }
+
+  setTimeout(() => burst(innerWidth/2, innerHeight*.6, 160, Math.PI/2.2, 16), 500);
+
+  // Tap sparks (not on button)
+  document.addEventListener('pointerdown', e => {
+    if (e.target.closest('button')) return;
+    burst(e.clientX, e.clientY, 18, Math.PI, 5, .12);
+  });
+
+  // Chime
+  function chime() {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    const ac = new AC(), t0 = ac.currentTime;
+    [523.25, 659.25, 783.99, 1046.5, 1318.51].forEach((f, i) => {
+      const o = ac.createOscillator(), g = ac.createGain(), t = t0 + i * .13;
+      o.type = 'sine'; o.frequency.value = f;
+      g.gain.setValueAtTime(0, t);
+      g.gain.linearRampToValueAtTime(.22, t + .02);
+      g.gain.exponentialRampToValueAtTime(.001, t + .6);
+      o.connect(g).connect(ac.destination); o.start(t); o.stop(t + .65);
+    });
+    setTimeout(() => ac.close(), 1800);
+  }
+
+  // Candle toggle
+  const cake = document.getElementById('cake');
+  const status = document.getElementById('status');
+  const btn = document.getElementById('toggle');
+  let out = false;
+  btn.addEventListener('click', () => {
+    out = !out;
+    cake.classList.toggle('out', out);
+    if (out) {
+      status.textContent = 'Your wish is on its way, Alicia.';
+      btn.textContent = 'Light them again';
+      const w = innerWidth, h = innerHeight;
+      burst(w * .15, h * .7, 90, .8, 15);
+      burst(w * .85, h * .7, 90, .8, 15);
+      burst(w * .5, h * .6, 110, Math.PI/2, 17);
+      chime();
+    } else {
+      status.textContent = 'Close your eyes and make a wish.';
+      btn.textContent = 'Blow out the candles';
+    }
+  });
+})();
+</script>
+</body>
+</html>
